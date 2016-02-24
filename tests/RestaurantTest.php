@@ -82,16 +82,18 @@
             $test_cuisine->save();
 
             $name = "Mee Dee Thai";
-            $happy_hour = False;
+            $happy_hour = 0;
             $address = "1234 Greelee St";
             $cuisine_id = $test_cuisine->getId();
             $test_restaurant = new Restaurant($id, $name, $happy_hour, $address, $cuisine_id);
+            $test_restaurant->save();
 
             $name2 = "Pok Pok";
-            $happy_hour2 = True;
+            $happy_hour2 = 1;
             $address2 = "1234 Division St";
             $cuisine_id2 = $test_cuisine->getId();
             $test_restaurant2 = new Restaurant($id, $name2, $happy_hour2, $address2, $cuisine_id2);
+            $test_restaurant2->save();
 
             //Act
             Restaurant::deleteAll();
@@ -99,6 +101,35 @@
 
             //Assert
             $this->assertEquals([], $result);
+        }
+
+        function test_find()
+        {
+            //Arrange
+            $type = "thai";
+            $id = null;
+            $test_cuisine = new Cuisine($type, $id);
+            $test_cuisine->save();
+
+            $name = "Mee Dee Thai";
+            $happy_hour = 0;
+            $address = "1234 Greelee St";
+            $cuisine_id = $test_cuisine->getId();
+            $test_restaurant = new Restaurant($id, $name, $happy_hour, $address, $cuisine_id);
+            $test_restaurant->save();
+
+            $name2 = "Pok Pok";
+            $happy_hour2 = 1;
+            $address2 = "1234 Division St";
+            $cuisine_id2 = $test_cuisine->getId();
+            $test_restaurant2 = new Restaurant($id, $name2, $happy_hour2, $address2, $cuisine_id2);
+            $test_restaurant2->save();
+
+            //Act
+            $result = Restaurant::find($test_restaurant->getId());
+
+            //Assert
+            $this->assertEquals($test_restaurant, $result);
         }
 
     }

@@ -55,5 +55,34 @@
         {
             return $this->cuisine_id;
         }
-    }    
+
+        function save()
+        {
+            $GLOBALS['DB']->exec("INSERT INTO restaurants (name, happy_hour, address, cuisine_id) VALUES ('{$this->getName()}', {$this->getHappyHour()}, '{$this->getAddress()}', {$this->getCuisineId()});");
+            $this->id = $GLOBALS['DB']->lastInsertId();
+        }
+
+        static function getAll()
+        {
+            $returned_restaurants = $GLOBALS['DB']->query("SELECT * FROM  restaurants;");
+            $restaurants = array();
+            foreach($returned_restaurants as $restaurant) {
+                $name = $restaurant['name'];
+                $happy_hour = $restaurant['happy_hour'];
+                $id = $restaurant['id'];
+                $cuisine_id = $restaurant['cuisine_id'];
+                $address = $restaurant['address'];
+                $new_restaurant = new Restaurant($id, $name, $happy_hour, $address, $cuisine_id);
+                array_push($restaurants, $new_restaurant);
+            }
+            return $restaurants;
+
+        }
+
+        static function deleteAll()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM restaurants;");
+        }
+
+    }
 ?>

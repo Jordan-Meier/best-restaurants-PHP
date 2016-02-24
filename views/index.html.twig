@@ -5,34 +5,29 @@
         <title></title>
     </head>
     <body>
-        <div class="container">
-            <h1></h1>
-            <form action="/rock_paper_scissors">
-                <div class="form-group">
-                    <label for="input_1">Player 1</label>
-                        <select name= "input_1" id="input_1" class="form-control">
-                            <option>rock</option>
-                            <option>paper</option>
-                            <option>scissors</option>
-                        </select><br>
-                    <label for="input_2">Player 2</label>
-                        <select name= "input_2" id="input_2" class="form-control">
-                            <option>rock</option>
-                            <option>paper</option>
-                            <option>scissors</option>
-                        </select><br>
-                </div>
-                <button class="btn btn-success" type="submit">Play!</button>
-            </form>
-            <hr>
-            <br>
-            <div class="well">
-                <h3>Who won?</h3>
-                <p>
-                    {{ results }}
-                </p>
+        <h1>Welcome to Best Restaurants</h1>
 
-            </div>
-        </div>
+        <p>Create a new cuisine type:</p>
+
+        <form action="/cuisines" method="post">
+            <label for="type">Cuisine type:</label>
+            <input id="type" name="type" type="text">
+
+            <button type="submit">Add Cuisine</button>
+        </form>
+
+        {% if cuisines is not empty %}
+            <p>Here are all your cuisine types:</p>
+            <ul>
+                {% for cuisine in cuisines %}
+                    <li><a href="/cuisines/{{ cuisine.getId }}">{{ cuisine.getType }}</a></li>
+                {% endfor %}
+            </ul>
+            <!-- <form action="/delete_cuisines" method="post">
+                <button type="submit" name="button">Delete All Cuisines</button>
+            </form> -->
+        {% else %}
+          <p>There are no cuisine types yet!</p>
+        {% endif %}
     </body>
 </html>

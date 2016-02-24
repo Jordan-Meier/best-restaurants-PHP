@@ -52,6 +52,37 @@
             $this->assertEquals([$test_Cuisine, $test_Cuisine2], $result);
         }
 
+        function test_getRestaurants()
+        {
+            //Arrange
+            $type = "Mexican";
+            $id = null;
+            $test_cuisine = new Cuisine($type, $id);
+            $test_cuisine->save();
+
+            // $test_cuisine_id = $test_cuisine->getId();
+
+            $name = "Por Que No";
+            $happy_hour = 1;
+            $address = "123 N Mississippi St";
+            $cuisine_id = $test_cuisine->getId();
+            $test_restaurant = new Restaurant($id, $name, $happy_hour, $address, $cuisine_id);
+            $test_restaurant->save();
+
+            $name2 = "Taco Time";
+            $happy_hour2 = 0;
+            $address2 = "1234 Wherever St";
+            $cuisine_id2 = $test_cuisine->getId();
+            $test_restaurant2 = new Restaurant($id, $name2, $happy_hour2, $address2, $cuisine_id2);
+            $test_restaurant2->save();
+
+            //Act
+            $result = $test_cuisine->getRestaurants();
+
+            //Assert
+            $this->assertEquals([$test_restaurant, $test_restaurant2], $result);
+        }
+
         function test_deleteAll()
         {
             //Arrange
@@ -86,6 +117,7 @@
             //Assert
             $this->assertEquals($test_Cuisine, $result);
         }
+
     }
 
 ?>

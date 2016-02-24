@@ -23,9 +23,9 @@
                     <li><a href="/cuisines/{{ cuisine.getId }}">{{ cuisine.getType }}</a></li>
                 {% endfor %}
             </ul>
-            <!-- <form action="/delete_cuisines" method="post">
+            <form action="/delete_cuisines" method="post">
                 <button type="submit" name="button">Delete All Cuisines</button>
-            </form> -->
+            </form>
         {% else %}
           <p>There are no cuisine types yet!</p>
         {% endif %}

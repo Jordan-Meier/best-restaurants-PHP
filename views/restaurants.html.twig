@@ -1,0 +1,35 @@
+<html>
+<head>
+    <title>Best Restaurants</title>
+</head>
+<body>
+    <h1>Best Restaurants</h1>
+    {% if restaurants is not empty %}
+        <h2>Here are all of your restaurants:</h2>
+        <ul>
+            {% for restaurant in restaurants %}
+                <li>{{ restaurant.getName }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form action='/restaurants' method='post'>
+        <label for='name'>Restaurant Name</label>
+        <input id='name' name='name' type='text'>
+        <label for='name'>Happy Hour?</label>
+        <select name= "happy_hour" class="form-control">
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </select>
+        <label for='address'>Address</label>
+        <input id='address' name='address' type='text'>
+
+        <button type='submit'>Add Restaurant</button>
+    </form>
+    <!-- <form action='/delete_tasks' method='post'>
+        <button type='submit'>Delete Task List</button>
+    </form> -->
+
+    <p><a href='/'>Home</a></p>
+</body>
+</html>

@@ -1,4 +1,10 @@
 <?php
+
+////////////MESSAGE TO PAIR WHO TAKES THIS ON/////////////
+/////////////////////////////////////////////////////////
+
+//We have most of the UI finished, but do not have methods or routes for delete, and the only patch route/method is for cuisine types//
+
     require_once __DIR__."/../vendor/autoload.php";
     require_once __DIR__."/../src/Restaurant.php";
     require_once __DIR__."/../src/Cuisine.php";

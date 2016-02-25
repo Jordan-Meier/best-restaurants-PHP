@@ -29,14 +29,14 @@
     <form action='/restaurants' method='post'>
         <input id="cuisine_id" name="cuisine_id" type="hidden" value="{{ cuisine.getId() }}">
         <label for='name'>Restaurant Name</label>
-        <input id='name' name='name' type='text'>
+        <input id='name' name='name' type='text'><br>
         <label for='name'>Happy Hour?</label>
-        <select name= "happy_hour" class="form-control">
+        <select name= "happy_hour">
           <option value="1">Yes</option>
           <option value="0">No</option>
-        </select>
+        </select><br>
         <label for='address'>Address</label>
-        <input id='address' name='address' type='text'>
+        <input id='address' name='address' type='text'><br><br>
 
         <button type='submit'>Add Restaurant</button>
     </form>

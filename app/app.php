@@ -1,10 +1,5 @@
 <?php
 
-////////////MESSAGE TO PAIR WHO TAKES THIS ON/////////////
-/////////////////////////////////////////////////////////
-
-//We have most of the UI finished, but do not have methods or routes for delete, and the only patch route/method is for cuisine types//
-
     require_once __DIR__."/../vendor/autoload.php";
     require_once __DIR__."/../src/Restaurant.php";
     require_once __DIR__."/../src/Cuisine.php";
@@ -27,24 +22,6 @@
         return $app['twig']->render('index.html.twig', array('cuisines' => Cuisine::getAll()));
     });
 
-    // $app->get("/restaurants", function() use ($app) {
-    //     return $app['twig']->render('restaurants.html.twig', array('restaurants' => Restaurant::getAll()));
-    // });
-
-    //////////////////////
-    ////RESTAURANTS//////
-    ////////////////////
-
-    $app->post("/restaurants", function() use ($app) {
-        $name = $_POST['name'];
-        $happy_hour = $_POST['happy_hour'];
-        $address = $_POST['address'];
-        $cuisine_id = $_POST['cuisine_id'];
-        $restaurant = new Restaurant($id= null, $name, $happy_hour, $address, $cuisine_id);
-        $restaurant->save();
-        $cuisine = Cuisine::find($cuisine_id);
-        return $app['twig']->render('cuisines.html.twig', array('cuisine' => $cuisine, 'restaurants' => $cuisine->getRestaurants()));
-    });
 
 //////////////////////
 ////////CUISINES/////////
@@ -79,6 +56,45 @@
         $type = $_POST['type'];
         $cuisine = Cuisine::find($id);
         $cuisine->update($type);
+        return $app['twig']->render('cuisines.html.twig', array('cuisine' => $cuisine, 'restaurants' => $cuisine->getRestaurants()));
+    });
+
+    //////////////////////
+    ////RESTAURANTS//////
+    ////////////////////
+
+    $app->post("/restaurants", function() use ($app) {
+        $name = $_POST['name'];
+        $happy_hour = $_POST['happy_hour'];
+        $address = $_POST['address'];
+        $cuisine_id = $_POST['cuisine_id'];
+        $restaurant = new Restaurant($id= null, $name, $happy_hour, $address, $cuisine_id);
+        $restaurant->save();
+        $cuisine = Cuisine::find($cuisine_id);
+        return $app['twig']->render('cuisines.html.twig', array('cuisine' => $cuisine, 'restaurants' => $cuisine->getRestaurants()));
+    });
+
+    $app->get("/restaurants/{id}/edit", function($id) use ($app) {
+        $restaurant = Restaurant::find($id);
+        return $app['twig']->render('restaurant_edit.html.twig', array('restaurant' => $restaurant));
+    });
+
+    $app->patch("/restaurant/{id}", function($id) use ($app) {
+       $new_name = $_POST['name'];
+       $new_happy_hour = $_POST['happy_hour'];
+       $new_address = $_POST['address'];
+       $restaurant = Restaurant::find($id);
+       $restaurant->updateRestaurant($new_name, $new_happy_hour, $new_address);
+       $cuisine_id = $restaurant->getCuisineId();
+       $cuisine = Cuisine::find($cuisine_id);
+       return $app['twig']->render('cuisines.html.twig', array('cuisine' => $cuisine, 'restaurants' => $cuisine->getRestaurants()));
+   });
+
+    $app->delete("/restaurant/{id}/delete", function($id) use ($app) {
+        $restaurant = Restaurant::find($id);
+        $cuisine_id = $restaurant->getCuisineId();
+        $cuisine = Cuisine::find($cuisine_id);
+        $restaurant->deleteOneRestaurant();
         return $app['twig']->render('cuisines.html.twig', array('cuisine' => $cuisine, 'restaurants' => $cuisine->getRestaurants()));
     });
 

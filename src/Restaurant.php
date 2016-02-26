@@ -77,7 +77,7 @@
             }
             return $restaurants;
         }
-        
+
         static function deleteAll()
         {
             $GLOBALS['DB']->exec("DELETE FROM restaurants;");
@@ -94,6 +94,15 @@
                 }
             }
             return $found_restaurant;
+        }
+
+        function updateRestaurant($new_name, $new_happy_hour, $new_address)
+        {
+            $GLOBALS['DB']->exec("UPDATE restaurants SET name = '{$new_name}', happy_hour = {$new_happy_hour}, address = '{$new_address}' WHERE id = {$this->getId()};");
+
+            $this->setName($new_name);
+            $this->setHappyHour($new_happy_hour);
+            $this->setAddress($new_address);
         }
 
     }

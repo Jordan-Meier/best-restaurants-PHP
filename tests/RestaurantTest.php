@@ -132,6 +132,33 @@
             $this->assertEquals($test_restaurant, $result);
         }
 
+        function testUpdateRestaurant()
+        {
+            //Arrange
+            $type = 'Mexican';
+            $test_Cuisine = new Cuisine($type);
+            $test_Cuisine->save();
+
+            $name = "Javiers";
+            $happy_hour = 0;
+            $address = "123 NW street";
+            $cuisine_id = $test_Cuisine->getId();
+            $test_restaurant = new Restaurant($id = null, $name, $happy_hour, $address, $cuisine_id);
+            $test_restaurant->save();
+
+            $new_name = "Por Que";
+            $new_happy_hour = 1;
+            $new_address = "124 SE street";
+
+
+            //Act
+            $test_restaurant->updateRestaurant($new_name, $new_happy_hour, $new_address);
+            // $result = Restaurant::getAll();
+
+            //Assert
+            $this->assertEquals(["Por Que", 1, "124 SE street"], [$test_restaurant->getName(), $test_restaurant->getHappyHour(), $test_restaurant->getAddress()]);
+        }
+
     }
 
 ?>

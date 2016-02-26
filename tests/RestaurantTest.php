@@ -159,6 +159,57 @@
             $this->assertEquals(["Por Que", 1, "124 SE street"], [$test_restaurant->getName(), $test_restaurant->getHappyHour(), $test_restaurant->getAddress()]);
         }
 
+        function testDeleteRestaurants()
+        {
+            //Arrange
+            $type = "Mexican";
+            $id = null;
+            $test_cuisine = new Cuisine($type, $id);
+            $test_cuisine->save();
+
+            $name = "Javiers";
+            $happy_hour = 0;
+            $address = "123 NW street";
+            $cuisine_id = $test_cuisine->getId();
+            $test_restaurant = new Restaurant($id = null, $name, $happy_hour, $address, $cuisine_id);
+            $test_restaurant->save();
+
+
+            //Act
+            $test_restaurant->delete();
+
+            //Assert
+            $this->assertEquals([], Restaurant::getAll());
+        }
+
+        function testDeleteOneRestaurant()
+        {
+            //Arrange
+            $type = "Mexican";
+            $id = null;
+            $test_cuisine = new Cuisine($type, $id);
+            $test_cuisine->save();
+
+            $name = "Javiers";
+            $happy_hour = 0;
+            $address = "123 NW street";
+            $cuisine_id = $test_cuisine->getId();
+            $test_restaurant = new Restaurant($id = null, $name, $happy_hour, $address, $cuisine_id);
+            $test_restaurant->save();
+
+            $name2 = "Por Que No";
+            $happy_hour2 = 1;
+            $address2 = "555 SW street";
+            $cuisine_id2 = $test_cuisine->getId();
+            $test_restaurant2 = new Restaurant($id2 = null, $name2, $happy_hour2, $address2, $cuisine_id2);
+            $test_restaurant2->save();
+
+            //Act
+            $test_restaurant->deleteOneRestaurant();
+            //Assert
+            $this->assertEquals([$test_restaurant2], Restaurant::getAll());
+        }
+
     }
 
 ?>

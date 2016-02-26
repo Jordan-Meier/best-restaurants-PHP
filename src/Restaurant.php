@@ -105,5 +105,15 @@
             $this->setAddress($new_address);
         }
 
+        function delete()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM restaurants WHERE cuisine_id = {$this->getCuisineId()};");
+        }
+
+        function deleteOneRestaurant()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM restaurants WHERE id = {$this->getId()};");
+        }
+
     }
 ?>

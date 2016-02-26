@@ -13,6 +13,13 @@
         <ul>
             {% for restaurant in restaurants %}
                 <li>{{ restaurant.getName }}</li>
+                <ul>
+                    <li>Happy Hour: {{ restaurant.getHappyHour }}</li>
+                    <li>Address: {{ restaurant.getAddress }}</li>
+                </ul>
+                <form action="/restaurants/{{ restaurant.getId }}/edit" >
+                    <button type="submit" name="button">Edit this restaurant</button>
+                </form>
             {% endfor %}
         </ul>
         {% else %}
